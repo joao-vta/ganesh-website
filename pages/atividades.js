@@ -41,28 +41,45 @@ function Bloco({title, description, date, imagesrc, link}) {
   );
 }
 
-function App() {
-	const { t, i18n } = useTranslation();
-	var cards = t('activities:activitycards', { returnObjects: true});
+function App({data}) {
+  var cards = data['data']
+  console.log(data)
 
-  return (
-    <div className='container mx-auto px-4 py-8'>
-      <ul className='flex flex-row flex-wrap my-4'>
-        {
-          cards.map((info, index) => (
-            <li key={index} className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex flex-col mb-4'>
-              <Bloco title={info.title} description={info.description} date={info.date} imagesrc={info.imagesrc} link={info.link}/>
+return (
+<div className='container mx-auto px-4 py-8'>
+        <ul className='flex flex-row flex-wrap my-4'>
+          {
+            cards.map((info, index) => (
+              <li key={index} className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 flex flex-col mb-4'>
+              <Bloco title={info.attributes.title} description={info.attributes.description} date={info.attributes.date} imagesrc={info.attributes.imagesrc} link={info.attributes.link}/>
             </li>
-          ))
-        }
-      </ul>
-    </div>
-  );
-	
+            ))
+            }
+        </ul>
+      </div>
+      )
 }
-const AppComponent = withTranslation()(App);
 
-function activities ({ t }){
+
+export const getServerSideProps = async (context) => {
+  var res;
+  console.log(i18n.language)
+
+  //This code does not work because i18n.language ALWAYS returns "br"
+  if (i18n.language === "en"){
+    res = await fetch("http://localhost:1337/api/atividades?locale=" + i18n.language);
+  }
+  else {
+    res = await fetch("http://localhost:1337/api/atividades?locale=pt-BR");
+  }
+  res = await res.json()
+
+  return {
+    props : {data : res}
+  }
+}
+
+function activities ({ t, data }){
 return (
   <React.Fragment>
     <Head
@@ -75,7 +92,7 @@ return (
         <h1 className='text-4xl text-center text-white'><Trans i18nKey="activities:title">Activities</Trans></h1>
       </div>
 
-      <AppComponent />
+      <App data={data} />
 
       <style jsx>{`
         .container-top {
