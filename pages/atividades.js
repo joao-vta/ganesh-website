@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component, useState } from 'react';
-
+import {fetchWithCache} from '../server/cache'
 
 import i18n from '../locale/locale.js';
 import { Trans, withTranslation, useTranslation } from 'react-i18next';
@@ -67,13 +67,12 @@ export const getServerSideProps = async (context) => {
 
   //This code does not work because i18n.language ALWAYS returns "br"
   if (i18n.language === "en"){
-    res = await fetch("http://localhost:1337/api/atividades?locale=" + i18n.language);
+    res = await fetchWithCache("http://localhost:1337/api/atividades?locale=" + i18n.language);
   }
   else {
-    res = await fetch("http://localhost:1337/api/atividades?locale=pt-BR");
+    res = await fetchWithCache("http://localhost:1337/api/atividades?locale=pt-BR");
   }
-  res = await res.json()
-
+  
   return {
     props : {data : res}
   }
