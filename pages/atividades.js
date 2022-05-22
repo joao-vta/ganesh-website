@@ -60,15 +60,8 @@ return (
 }
 
 
-export const getServerSideProps = async (ctx) => {
-  var res;
-  if (ctx.locale === "en"){
-    res = await fetchWithCache("http://localhost:1337/api/atividades?locale=en");
-  }
-  else {
-    res = await fetchWithCache("http://localhost:1337/api/atividades?locale=pt-BR");
-  }
-  
+export const getServerSideProps = async ({locale}) => {
+  var res = await fetchWithCache("http://localhost:1337/api/atividades?locale=" + locale);
   return {
     props : {data : res}
   }
