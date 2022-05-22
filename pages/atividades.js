@@ -3,7 +3,7 @@ import { Component, useState } from 'react';
 import {fetchWithCache} from '../server/cache'
 
 import i18n from '../locale/locale.js';
-import {withTranslation, useTranslation} from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
 import Head from '../shared/components/head';
 import Navbar from '../shared/components/navbar/navbar';
@@ -62,8 +62,6 @@ return (
 
 export const getServerSideProps = async (ctx) => {
   var res;
-
-  //This code does not work because i18n.language ALWAYS returns "pt-BR"
   if (ctx.locale === "en"){
     res = await fetchWithCache("http://localhost:1337/api/atividades?locale=en");
   }
