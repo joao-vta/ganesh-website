@@ -3,8 +3,7 @@ import { Component, useState } from 'react';
 import {fetchWithCache} from '../server/cache'
 
 import i18n from '../locale/locale.js';
-import {Trans, withTranslation, useTranslation } from 'react-i18next';
-import { useRouter } from 'next/router'
+import {withTranslation, useTranslation} from 'react-i18next';
 
 import Head from '../shared/components/head';
 import Navbar from '../shared/components/navbar/navbar';
@@ -61,12 +60,11 @@ return (
 }
 
 
-export const getServerSideProps = async ({locale}) => {
+export const getServerSideProps = async (ctx) => {
   var res;
-  console.log(locale);
 
   //This code does not work because i18n.language ALWAYS returns "pt-BR"
-  if (locale === "en"){
+  if (ctx.locale === "en"){
     res = await fetchWithCache("http://localhost:1337/api/atividades?locale=en");
   }
   else {
@@ -78,7 +76,8 @@ export const getServerSideProps = async ({locale}) => {
   }
 } 
 
-function activities ({ t, data }){
+function activities ({data}){
+  const { t, i18n } = useTranslation();
 return (
   <React.Fragment>
     <Head
@@ -88,7 +87,7 @@ return (
     <Navbar />
     <main>
       <div className='flex justify-center items-center bg-fixed bg-cover bg-center container-top shadow-md'>
-        <h1 className='text-4xl text-center text-white'><Trans i18nKey="activities:title">Activities</Trans></h1>
+        <h1 className='text-4xl text-center text-white'>{t('activities:title')}</h1>
       </div>
 
       <App data={data} />
@@ -124,4 +123,4 @@ return (
 );
 }
 
-export default withTranslation()(activities);
+export default activities;
