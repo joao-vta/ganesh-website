@@ -3,7 +3,8 @@ import { Component, useState } from 'react';
 import {fetchWithCache} from '../server/cache'
 
 import i18n from '../locale/locale.js';
-import { Trans, withTranslation, useTranslation } from 'react-i18next';
+import {Trans, withTranslation, useTranslation } from 'react-i18next';
+import { useRouter } from 'next/router'
 
 import Head from '../shared/components/head';
 import Navbar from '../shared/components/navbar/navbar';
@@ -43,7 +44,6 @@ function Bloco({title, description, date, imagesrc, link}) {
 
 function App({data}) {
   var cards = data['data']
-  console.log(data)
 
 return (
 <div className='container mx-auto px-4 py-8'>
@@ -61,13 +61,13 @@ return (
 }
 
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async ({locale}) => {
   var res;
-  console.log(i18n.language)
+  console.log(locale);
 
-  //This code does not work because i18n.language ALWAYS returns "br"
-  if (i18n.language === "en"){
-    res = await fetchWithCache("http://localhost:1337/api/atividades?locale=" + i18n.language);
+  //This code does not work because i18n.language ALWAYS returns "pt-BR"
+  if (locale === "en"){
+    res = await fetchWithCache("http://localhost:1337/api/atividades?locale=en");
   }
   else {
     res = await fetchWithCache("http://localhost:1337/api/atividades?locale=pt-BR");
@@ -76,7 +76,7 @@ export const getServerSideProps = async (context) => {
   return {
     props : {data : res}
   }
-}
+} 
 
 function activities ({ t, data }){
 return (

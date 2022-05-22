@@ -195,7 +195,7 @@ export const DesktopNavbar = React.forwardRef(({
             <ul className="submenu">
               <li>
                   <button onClick={
-                    () => i18n.changeLanguage("br")
+                    () => i18n.changeLanguage("pt-BR")
                   }>Português BR</button>
               </li>
               <li>

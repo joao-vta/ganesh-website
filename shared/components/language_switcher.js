@@ -6,7 +6,7 @@ export function LanguageSwitcher() {
   const { i18n } = useTranslation();
 
   if (i18n.language == "en") return "English";
-  if (i18n.language == "br") return "Português BR";
+  if (i18n.language == "pt-BR") return "Português BR";
 
   else return "English";
 }
@@ -15,10 +15,10 @@ export function LanguageToggle() {
 
   const { i18n } = useTranslation();
 
-  if (i18n.language == "en") return "br";
-  if (i18n.language == "br") return "en";
+  if (i18n.language == "en") return "pt-BR";
+  if (i18n.language == "pt-BR") return "en";
 
-  else return "br";
+  else return "pt-BR";
 }
 
 /*
@@ -27,7 +27,7 @@ export function LanguageEmoji()
   const { i18n } = useTranslation();
 
   if (i18n.language == "en") return ( <div>&#x1F1EC;&#x1F1E7;</div> );
-  if (i18n.language == "br") return ( <div>&#x1F1E7;&#x1F1F7;</div> );
+  if (i18n.language == "pt-BR") return ( <div>&#x1F1E7;&#x1F1F7;</div> );
 
   else return <div>&#x1F1E7;&#x1F1F7;</div>;
 }

@@ -34,7 +34,7 @@ import faq_br from "./br/faq.json"
 
 
 const resources = {
-  en: {
+  "en": {
     index: index_en,
     navbar: navbar_en,
     aboutus: aboutus_en,
@@ -46,7 +46,7 @@ const resources = {
     contact: contact_en,
     faq: faq_en
   },
-  br: {
+  "pt-BR": {
     index: index_br,
     navbar: navbar_br,
     aboutus: aboutus_br,
@@ -65,7 +65,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: "br",
+    lng: "pt-BR",
 
     keySeparator: false, // we do not use keys in form messages.welcome
 

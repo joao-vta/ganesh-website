@@ -154,7 +154,7 @@ export const NavbarMenu = React.forwardRef(({
       >
         <li>
             <button onClick={
-              () => i18n.changeLanguage("br")
+              () => i18n.changeLanguage("pt-BR")
             }>Português BR</button>
         </li>
         <li>
